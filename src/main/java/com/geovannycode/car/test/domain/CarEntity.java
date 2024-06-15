@@ -9,8 +9,10 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -20,8 +22,9 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "cars")
 public class CarEntity {
@@ -54,4 +57,13 @@ public class CarEntity {
     @NotNull(message = "Car price is required") @DecimalMin("0.1")
     @Column(nullable = false)
     private BigDecimal price;
+
+    public CarEntity(String brand, String model, String color, String registrationNumber, Integer modelYear, BigDecimal price) {
+        this.brand = brand;
+        this.model = model;
+        this.color = color;
+        this.registrationNumber = registrationNumber;
+        this.modelYear = modelYear;
+        this.price = price;
+    }
 }

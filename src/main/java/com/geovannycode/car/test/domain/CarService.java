@@ -23,4 +23,15 @@ public class CarService {
     public Optional<Car> getCarByRegistrationNumber(String registrationNumber) {
         return carRepository.findByRegistrationNumber(registrationNumber).map(CarMapper::toCar);
     }
+
+    public Car saveCar(Car car) {
+        CarEntity carEntity = CarMapper.toCarEntity(car);
+        Optional<CarEntity> savedCar = carRepository.findByRegistrationNumber(carEntity.getRegistrationNumber());
+        if(savedCar.isPresent()){
+            throw new CarNotFoundException("Car already exist with given email:" + carEntity.getRegistrationNumber());
+        }
+        CarEntity savedCarEntity = carRepository.save(carEntity);
+        return CarMapper.toCar(savedCarEntity);
+    }
+
 }
