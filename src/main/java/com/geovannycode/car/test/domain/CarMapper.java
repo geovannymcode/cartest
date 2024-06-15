@@ -25,4 +25,13 @@ public class CarMapper {
                 car.price()
         );
     }
+
+    public static void updateCarEntityFromCar(CarEntity carEntity, Car car) {
+        carEntity.setBrand(car.brand());
+        carEntity.setModel(car.model());
+        carEntity.setColor(car.color());
+        carEntity.setRegistrationNumber(car.registrationNumber());
+        carEntity.setModelYear(car.modelYear());
+        carEntity.setPrice(car.price());
+    }
 }
