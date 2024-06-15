@@ -1,0 +1,3 @@
+INSERT INTO cars (id, brand, model, color, registration_number, model_year, price) VALUES
+                                                                                       ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Toyota', 'Corolla', 'Blue', 'ABC123', 2020, 20000.00),
+                                                                                       ('a65d1a93-6157-4df7-8a6d-6d1a14b2b24a', 'Honda', 'Civic', 'Red', 'XYZ789', 2019, 18000.00);
