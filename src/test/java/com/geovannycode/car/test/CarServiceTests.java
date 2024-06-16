@@ -142,19 +142,25 @@ public class CarServiceTests {
     @DisplayName("JUnit test for deleteCar method")
     @Test
     public void givenCarRegistrationNumber_whenDeleteCar_thenNothing(){
-       // given - precondition or setup
-       UUID carId = UUID.fromString("b73d2343-f072-490a-b796-cbfa6de20f67");
-       CarEntity carEntity = CarMapper.toCarEntity(car);
-       carEntity.setId(carId);
-       when(carRepository.findById(carEntity.getId())).thenReturn(Optional.of(carEntity));
+        // given - precondition or setup
+        UUID carId = UUID.fromString("b73d2343-f072-490a-b796-cbfa6de20f67");
+        CarEntity carEntity = CarMapper.toCarEntity(car);
+        carEntity.setId(carId);
 
-       doNothing().when(carRepository).deleteById(carId);
+        // Save the carEntity in the mock repository before trying to delete it
+        when(carRepository.save(carEntity)).thenReturn(carEntity);
+        carRepository.save(carEntity);
 
-       // when -  action or the behaviour that we are going test
-       carService.deleteCar(carId);
+        // Set up the existsById method of the mock repository to return true for the carId
+        when(carRepository.existsById(carId)).thenReturn(true);
 
-       // then - verify the output
-       verify(carRepository, times(1)).deleteById(carId);
+        doNothing().when(carRepository).deleteById(carId);
+
+        // when -  action or the behaviour that we are going test
+        carService.deleteCar(carId);
+
+        // then - verify the output
+        verify(carRepository, times(1)).deleteById(carId);
     }
 
 
